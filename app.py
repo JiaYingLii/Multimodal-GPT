@@ -378,9 +378,9 @@ if __name__ == "__main__":
     download('houshaowei/Multimodal-GPT', 'checkpoint',
              './checkpoints/OpenFlamingo-9B/')
 
-    llama_path = "checkpoints/llama-7b_hf"
-    open_flamingo_path = "checkpoints/OpenFlamingo-9B/checkpoint.pt"
-    finetune_path = "checkpoints/mmgpt-lora-v0-release.pt"
+    llama_path = "./checkpoints/llama-7b_hf"
+    open_flamingo_path = "./checkpoints/OpenFlamingo-9B/checkpoint.pt"
+    finetune_path = "./checkpoints/mmgpt-lora-v0-release.pt"
 
     inferencer = Inferencer(
         llama_path=llama_path,

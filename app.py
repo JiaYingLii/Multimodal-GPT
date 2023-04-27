@@ -5,6 +5,7 @@ import torch
 from PIL import Image
 
 from mmgpt.models.builder import create_model_and_transforms
+from openxlab.model import download
 
 TEMPLATE = "Below is an instruction that describes a task. Write a response that appropriately completes the request."
 response_split = "### Response:"
@@ -356,6 +357,27 @@ def build_conversation_demo():
 
 
 if __name__ == "__main__":
+    download('houshaowei/Multimodal-GPT', 'mmgpt-lora-v0-release',
+             './checkpoints/')
+    download('houshaowei/Multimodal-GPT', 'pytorch_model-00001-of-00002',
+             './checkpoints/llama-7b_hf/')
+    download('houshaowei/Multimodal-GPT', 'pytorch_model-00002-of-00002',
+             './checkpoints/llama-7b_hf/')
+    download('houshaowei/Multimodal-GPT', 'tokenizer',
+             './checkpoints/llama-7b_hf/')
+    download('houshaowei/Multimodal-GPT', 'tokenizer_config',
+             './checkpoints/llama-7b_hf/')
+    download('houshaowei/Multimodal-GPT', 'special_tokens_map',
+             './checkpoints/llama-7b_hf/')
+    download('houshaowei/Multimodal-GPT', 'pytorch_model_bin_index',
+             './checkpoints/llama-7b_hf/')
+    download('houshaowei/Multimodal-GPT', 'generation_config',
+             './checkpoints/llama-7b_hf/')
+    download('houshaowei/Multimodal-GPT', 'config',
+             './checkpoints/llama-7b_hf/')
+    download('houshaowei/Multimodal-GPT', 'checkpoint',
+             './checkpoints/OpenFlamingo-9B/')
+
     llama_path = "checkpoints/llama-7b_hf"
     open_flamingo_path = "checkpoints/OpenFlamingo-9B/checkpoint.pt"
     finetune_path = "checkpoints/mmgpt-lora-v0-release.pt"

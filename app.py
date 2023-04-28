@@ -369,8 +369,9 @@ if __name__ == "__main__":
              './checkpoints/llama-7b_hf/')
     download('houshaowei/Multimodal-GPT', 'special_tokens_map',
              './checkpoints/llama-7b_hf/')
-    download('houshaowei/Multimodal-GPT', 'pytorch_model_bin_index',
-             './checkpoints/llama-7b_hf/')
+    # openxlab pytorch_model.bin.index.json->pytorch_model_bin_index.json
+    # download('houshaowei/Multimodal-GPT', 'pytorch_model_bin_index',
+    #          './checkpoints/llama-7b_hf/')
     download('houshaowei/Multimodal-GPT', 'generation_config',
              './checkpoints/llama-7b_hf/')
     download('houshaowei/Multimodal-GPT', 'config',

@@ -390,6 +390,6 @@ if __name__ == "__main__":
     init_memory = str(round(torch.cuda.memory_allocated() / 1024**3, 2)) + 'GB'
     demo = build_conversation_demo()
     demo.queue(concurrency_count=3)
-    IP = "0.0.0.0"
-    PORT = 8997
-    demo.launch(server_name=IP, server_port=PORT, share=True)
+    # IP = "0.0.0.0"
+    # PORT = 8997
+    demo.launch(share=True)

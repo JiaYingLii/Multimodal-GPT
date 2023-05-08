@@ -72,12 +72,12 @@ def create_model_and_transforms(
         ["vision_cfg"]["width"],
         cross_attn_every_n_layers=4,
         **flamingo_kwargs,
-    )
+    ).cuda()
 
     if pretrained_model_path is not None:
         print(f"loading pretrained model from {pretrained_model_path}")
         model.load_state_dict(
-            torch.load(pretrained_model_path, map_location="cuda"),
+            torch.load(pretrained_model_path),
             strict=False)
 
     # Freeze all parameters

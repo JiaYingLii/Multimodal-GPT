@@ -14,7 +14,7 @@ response_split = "### Response:"
 class Inferencer:
 
     def __init__(self, finetune_path, llama_path, open_flamingo_path):
-        ckpt = torch.load(finetune_path, map_location="cpu")
+        ckpt = torch.load(finetune_path, map_location="cuda")
         if "model_state_dict" in ckpt:
             state_dict = ckpt["model_state_dict"]
             # remove the "module." prefix

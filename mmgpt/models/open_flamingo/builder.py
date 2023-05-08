@@ -38,14 +38,14 @@ def create_model_and_transforms(
     """
     print("init clip vision encoder")
     vision_encoder, _, image_processor = open_clip.create_model_and_transforms(
-        clip_vision_encoder_path, pretrained=clip_vision_encoder_pretrained
-    )
+        clip_vision_encoder_path, pretrained=clip_vision_encoder_pretrained)
     # set the vision encoder to output the visual features
     vision_encoder.visual.output_tokens = True
     print("init tokenizer")
     text_tokenizer = LlamaTokenizer.from_pretrained(tokenizer_path)
     # add Flamingo special tokens to the tokenizer
-    text_tokenizer.add_special_tokens({"additional_special_tokens": ["<|endofchunk|>", "<image>"]})
+    text_tokenizer.add_special_tokens(
+        {"additional_special_tokens": ["<|endofchunk|>", "<image>"]})
     if text_tokenizer.pad_token is None:
         # Issue: GPT models don't have a pad token, which we use to
         # modify labels for the loss.
@@ -58,7 +58,8 @@ def create_model_and_transforms(
     extend_instance(lang_encoder, FlamingoLMMixin)
 
     if decoder_layers_attr_name is None:
-        decoder_layers_attr_name = _infer_decoder_layers_attr_name(lang_encoder)
+        decoder_layers_attr_name = _infer_decoder_layers_attr_name(
+            lang_encoder)
     lang_encoder.set_decoder_layers_attr_name(decoder_layers_attr_name)
     lang_encoder.resize_token_embeddings(len(text_tokenizer))
 
@@ -67,14 +68,17 @@ def create_model_and_transforms(
         lang_encoder,
         text_tokenizer.encode("<|endofchunk|>")[-1],
         text_tokenizer.encode("<image>")[-1],
-        vis_dim=open_clip.get_model_config(clip_vision_encoder_path)["vision_cfg"]["width"],
+        vis_dim=open_clip.get_model_config(clip_vision_encoder_path)
+        ["vision_cfg"]["width"],
         cross_attn_every_n_layers=4,
         **flamingo_kwargs,
     )
 
     if pretrained_model_path is not None:
         print(f"loading pretrained model from {pretrained_model_path}")
-        model.load_state_dict(torch.load(pretrained_model_path), strict=False)
+        model.load_state_dict(
+            torch.load(pretrained_model_path, map_location="cuda"),
+            strict=False)
 
     # Freeze all parameters
     model.requires_grad_(False)
@@ -123,7 +127,8 @@ def prepare_model_for_tuning(model: nn.Module, config):
             modules_to_save=[],  # TODO: might be helpful if save partial model
             task_type="VL",
         )
-        model.lang_encoder = get_peft_model(model.lang_encoder, peft_config=lora_config)
+        model.lang_encoder = get_peft_model(
+            model.lang_encoder, peft_config=lora_config)
 
     # manually unfreeze modules, we use a `substring` fashion mathcing
     for name, param in model.named_parameters():

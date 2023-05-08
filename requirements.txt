@@ -1,9 +1,9 @@
 einops
 einops-exts
 transformers
-peft
+peft==0.2.0
 bigmodelvis
-torch
+torch==1.13.0
 torchvision
 pillow
 more-itertools

@@ -54,7 +54,7 @@ def create_model_and_transforms(
     text_tokenizer.eos_token_id = 2
 
     print("init llama")
-    lang_encoder = LlamaForCausalLM.from_pretrained(lang_encoder_path)
+    lang_encoder = LlamaForCausalLM.from_pretrained(lang_encoder_path, offload_state_dict=True)
     extend_instance(lang_encoder, FlamingoLMMixin)
 
     if decoder_layers_attr_name is None:
